@@ -185,11 +185,11 @@ const RegistroForm = ({ eventoId }) => {
             <label>{name === "nombres" ? "Nombres" : "Apellidos"}</label>
             <div className={`input-wrapper ${errors[name] ? "input-error" : ""}`}>
               <input type="text" name={name} value={formData[name]} onChange={handleChange} />
-              {formData[name] && (
+              {/* {formData[name] && (
                 <button type="button" className="clear-btn" onClick={() => clearField(name)}>
                   ✕
                 </button>
-              )}
+              )} */}
             </div>
             {errors[name] && <p className="error-message">{errors[name]}</p>}
           </div>
