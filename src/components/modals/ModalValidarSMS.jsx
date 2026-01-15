@@ -36,7 +36,7 @@ const ModalSms = ({ usuarioId, idRegistroEvento }) => {
     const loadingToast = toast.loading("Validando SMS...");
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/registros/validar-codigo-sms`, {
+      await axios.post(`http://localhost:4000/api/registros/validar-codigo-sms`, {
         usuario_id: usuarioId,
         codigo_sms: codigo,
         id_registro_evento: idRegistroEvento,

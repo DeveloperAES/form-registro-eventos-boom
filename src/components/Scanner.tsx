@@ -33,7 +33,7 @@ const QrReader = () => {
                 }
 
                 // Llamar a tu servicio backend
-                const response = await fetch(`http://localhost:4000/api/registros/validar/${uuid}`);
+                const response = await fetch(`https://eventosbooomapi-aub8evccgse4aye8.eastus-01.azurewebsites.net/api/registros/validar/${uuid}`);
                 const html = await response.text();
 
                 // Mostrar respuesta dentro de la app

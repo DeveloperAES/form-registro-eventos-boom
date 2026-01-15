@@ -23,6 +23,8 @@ const RegistroForm = ({ eventoId }) => {
   const [aceptaTerminos, setAceptaTerminos] = useState(false);
   const [errors, setErrors] = useState({});
 
+  // Evita envíos múltiples
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // Estados del flujo
   const [usuarioId, setUsuarioId] = useState(null);
   const [idRegistroEvento, setIdRegistroEvento] = useState(null);
@@ -81,19 +83,18 @@ const RegistroForm = ({ eventoId }) => {
   const handleSubmit = async (e) => {
     e?.preventDefault();
 
+    if (isSubmitting) return;
+
     if (!validateForm()) return;
 
-    // Muestra un toast de "Cargando"
+    setIsSubmitting(true);
     const loadingToast = toast.loading("Procesando...");
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/registros/registrar`,
+        `http://localhost:4000/api/registros/registrar`,
         { ...formData, evento_id: eventoId }
       );
-
-      // Cierra el toast de "Cargando" después de la respuesta
-      toast.dismiss(loadingToast);
 
       const data = res.data;
 
@@ -111,32 +112,22 @@ const RegistroForm = ({ eventoId }) => {
       }
 
       toast.success("¡Registro exitoso!", {
-        duration: 3000, // 3 segundos
-        position: "top-right", // Posición del toast
-        style: {
-          backgroundColor: "#4CAF50", // Fondo verde
-          color: "white", // Texto blanco
-          borderRadius: "8px", // Bordes redondeados
-          fontSize: "16px", // Fuente de tamaño 16px
-          padding: "10px", // Relleno
-        },
-        icon: "✔️", // Icono de éxito
+        duration: 3000,
+        position: "top-right",
+        style: { backgroundColor: "#4CAF50", color: "white", borderRadius: "8px", fontSize: "16px", padding: "10px" },
+        icon: "✔️",
       });
     } catch (error) {
-      toast.dismiss(loadingToast); // Cerrar el toast de "Cargando" si hay error
       const msg = error.response?.data?.error || "Error en el registro.";
       toast.error(`${msg}`, {
-        duration: 3000, // 3 segundos
-        position: "top-right", // Posición del toast
-        style: {
-          backgroundColor: "#f44336", // Fondo rojo
-          color: "white", // Texto blanco
-          borderRadius: "8px", // Bordes redondeados
-          fontSize: "16px", // Fuente de tamaño 16px
-          padding: "10px", // Relleno
-        },
-        icon: "❌", // Icono de error
+        duration: 3000,
+        position: "top-right",
+        style: { backgroundColor: "#f44336", color: "white", borderRadius: "8px", fontSize: "16px", padding: "10px" },
+        icon: "❌",
       });
+    } finally {
+      toast.dismiss(loadingToast);
+      setIsSubmitting(false);
     }
   };
 
@@ -153,7 +144,7 @@ const RegistroForm = ({ eventoId }) => {
     // Enviar de nuevo /registrar (segundo paso)
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/registros/registrar`,
+        `http://localhost:4000/api/registros/registrar`,
         { ...formData, evento_id: eventoId }
       );
 
@@ -281,8 +272,13 @@ const RegistroForm = ({ eventoId }) => {
         </div>
         {errors.terminos && <p className="error-message">{errors.terminos}</p>}
 
-        <button type="submit" className="btn-registrarse">
-          Enviar
+        <button
+          type="submit"
+          className="btn-registrarse"
+          disabled={isSubmitting}
+          aria-busy={isSubmitting}
+        >
+          {isSubmitting ? "Enviando..." : "Enviar"}
         </button>
       </form>
 
