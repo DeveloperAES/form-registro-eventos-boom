@@ -3,14 +3,15 @@ import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import logo from "../assets/images/logo.webp";
 
 import ModalVerificacionCorreo from "./modals/ModalValidarCorreo";
 import ModalUsuarioCreado from "./modals/ModalUsuarioCreado";
 import ModalSms from "./modals/ModalValidarSMS";
 
-import "../registroForm.css";
 
-const RegistroForm = ({ eventoId }) => {
+
+const RegistroForm = ({ eventoId, title }) => {
   const [formData, setFormData] = useState({
     dni: "",
     nombres: "",
@@ -166,7 +167,17 @@ const RegistroForm = ({ eventoId }) => {
     <div className="registro-form-container">
       <Toaster position="top-right" />
 
-      <h2>Formulario de Registro</h2>
+      <div className="logo">
+        <img src={logo} alt="Logo de eventos Booombtl" />
+
+      </div>
+
+      <div className="textos">
+        <h2>{title}</h2>
+        <p>Por favor, ingresa tus datos</p>
+
+
+      </div>
 
       <form onSubmit={handleSubmit} className="registro-form">
 

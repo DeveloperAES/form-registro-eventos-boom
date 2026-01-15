@@ -6,7 +6,7 @@ const ModalValidarPage = () => {
     <div className="wrapper__modal">
 
       {/* <ModalValidarCorreo /> */}
-      <ModalUsuario />
+      <ModalValidarCorreo />
     </div>
   );
 };

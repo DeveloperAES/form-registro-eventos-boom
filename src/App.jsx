@@ -3,7 +3,7 @@ import EventoTradex from "./pages/EventoTradex";
 import EventoLucky from "./pages/EventoLucky";
 import EventoXploraFest from "./pages/EventoXploraFest";
 import EventoBooom from "./pages/EventoBooom";
-import ScannerPage from "./pages/PageQr";
+import ModalValidarPage from "./pages/ModalPage";
 
 /*Modales de registro*/
 import ModalPage from "./pages/ModalPage";
@@ -29,7 +29,7 @@ function App() {
         <Route path="/evento-lucky" element={<EventoLucky />} />
         <Route path="/evento-xplora" element={<EventoXploraFest />} />
         <Route path="/evento-booom" element={<EventoBooom />} />
-        <Route path="/scanner-page" element={<ScannerPage />} />
+        <Route path="/modal-validar" element={<ModalValidarPage />} />
 
       </Routes>
     </div>

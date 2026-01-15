@@ -1,6 +1,22 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+@font-face {
+  font-family: "Opensans-regular";
+  src: url("assets/fonts/OpenSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: "Opensans-medium";
+  src: url("assets/fonts/OpenSans-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+:root {
+  --font-regular: "Opensans-regular", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --color-orange: #F58730;
+  --bg-secondary: #F8F8F8;
 }
 
 * {
@@ -9,6 +25,9 @@
   padding: 0;
 }
 
+.color-orange {
+  color: var(--color-orange);
+}
 
 #root {
   width: 100%;
@@ -32,33 +51,170 @@ body {
   min-width: 320px;
   min-height: 100vh;
   position: relative;
-  background-color: #6e6e6e;
+  background-color: #ced4da;
+  font-family: var(--font-regular);
 
 }
 
-h1 {
-  font-size: clamp(1.5rem, 5vw, 3.2rem);
+h2 {
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
   line-height: 1.1;
   text-align: center;
-  color: #fff;
+  color: #000;
+  font-family: var(--font-medium);
+}
+
+p {
+  color: #000;
+
+
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.textos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
 .form-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
+
 
   .registro-form-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
     width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: #fff;
+    border-radius: .7rem;
+  }
+
+  .registro-form {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .registro-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .input-group {
+    margin-bottom: 16px;
+
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .input-wrapper input,
+  .phone-number-input {
+    width: 100%;
+    padding: 12px 32px 12px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  input[type="checkbox"] {
+
+    accent-color: #202020;
+    /* Cambia el color al check (en navegadores modernos) */
+    cursor: pointer;
+  }
+
+
+  .input-wrapper.input-error input,
+  .input-wrapper.input-error .phone-number-input {
+    border-color: #e53e3e;
+  }
+
+  .clear-btn {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    background-color: #6C757D;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+  }
+
+  .error-message {
+    color: #e53e3e;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .phone-number-input {
+    padding: 0;
+    padding: 0 .5rem;
+
+    input {
+
+      border: none;
+    }
+  }
+
+  .checkbox {
+    margin-bottom: 16px;
+  }
+
+  .btn-registrarse {
+    padding: .8rem 4rem;
+    background: #6C757D;
+    color: #fff;
+    width: fit-content;
+    max-width: 100%;
+    font-size: 16px;
+    margin: auto;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .btn-registrarse:hover {
+    background: #4b4e52;
+  }
+
+  /* Flex fila DNI + Celular */
+  .flex-row {
+    display: flex;
+    gap: 16px;
+
+    @media (max-width:768px) {
+      flex-direction: column;
+    }
+  }
+
+  .flex-item {
+    /* flex: 0 1 200px; */
+    flex: 1;
   }
 }
 
-.title__evento {
-  font-size: clamp(1.5rem, 5vw, 3.2rem);
-  max-width: 44rem;
-  text-align: center;
-  margin: 0 auto;
+/* Mobile: apilar */
+@media (max-width: 600px) {
+  .flex-row {
+    flex-direction: column;
+  }
 }
