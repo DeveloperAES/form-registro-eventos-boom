@@ -1,9 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import logo from "../assets/images/logo.webp";
+import registroService from "../services/registroService";
 
 import ModalVerificacionCorreo from "./modals/ModalValidarCorreo";
 import ModalUsuarioCreado from "./modals/ModalUsuarioCreado";
@@ -11,7 +11,7 @@ import ModalSms from "./modals/ModalValidarSMS";
 
 
 
-const RegistroForm = ({ eventoId, title }) => {
+const RegistroForm = ({ evento }) => {
   const [formData, setFormData] = useState({
     dni: "",
     nombres: "",
@@ -92,12 +92,7 @@ const RegistroForm = ({ eventoId, title }) => {
     const loadingToast = toast.loading("Procesando...");
 
     try {
-      const res = await axios.post(
-        `http://localhost:4000/api/registros/registrar`,
-        { ...formData, evento_id: eventoId }
-      );
-
-      const data = res.data;
+      const data = await registroService.registrarUsuario(formData, evento.id);
 
       if (data.estado === "USUARIO PRE-CREADO") {
         setUsuarioId(data.usuario_id);
@@ -119,7 +114,7 @@ const RegistroForm = ({ eventoId, title }) => {
         icon: "✔️",
       });
     } catch (error) {
-      const msg = error.response?.data?.error || "Error en el registro.";
+      const msg = error.message || "Error en el registro.";
       toast.error(`${msg}`, {
         duration: 3000,
         position: "top-right",
@@ -144,12 +139,7 @@ const RegistroForm = ({ eventoId, title }) => {
 
     // Enviar de nuevo /registrar (segundo paso)
     try {
-      const res = await axios.post(
-        `http://localhost:4000/api/registros/registrar`,
-        { ...formData, evento_id: eventoId }
-      );
-
-      const data = res.data;
+      const data = await registroService.registrarUsuario(formData, evento.id);
 
       if (data.estado === "REGISTRO PRE-CREADO") {
         setUsuarioId(data.usuario_id);
@@ -173,7 +163,7 @@ const RegistroForm = ({ eventoId, title }) => {
       </div>
 
       <div className="textos">
-        <h2>{title}</h2>
+        <h2>{evento?.nombre || "Registro de Evento"}</h2>
         <p>Por favor, ingresa tus datos</p>
 
 

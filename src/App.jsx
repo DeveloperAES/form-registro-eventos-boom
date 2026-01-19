@@ -12,28 +12,16 @@ import "./index.css";
 function App() {
   return (
     <div>
-      {/* <nav style={{ display: "flex", gap: "10px", padding: "10px" }}>
-        <Link to="/evento/4">Evento 1 (Dinámico)</Link>
-        <Link to="/evento/6">Evento 2 (Dinámico)</Link>
-        <Link to="/evento-tradex">Evento Tradex</Link>
-        <Link to="/evento-gaming">Evento Gaming</Link>
-      </nav> */}
-
       <Routes>
-        <Route path="/modal" element={<ModalPage />} />
-        {/* Opción dinámica: usa el id en la URL */}
-        {/* <Route path="/evento/:id" element={<EventoRouter />} /> */}
+        {/* Ruta dinámica: usa el id en la URL */}
+        <Route path="/evento/:id" element={<EventoLucky />} />
 
-        {/* Opción fija: distintas páginas con distintos IDs */}
-        <Route path="/evento-tradex" element={<EventoTradex />} />
-        <Route path="/evento-lucky" element={<EventoLucky />} />
-        <Route path="/evento-xplora" element={<EventoXploraFest />} />
-        <Route path="/evento-booom" element={<EventoBooom />} />
-        <Route path="/modal-validar" element={<ModalValidarPage />} />
-
+        {/* Redirección por defecto a evento con ID 2 */}
+        {/* <Route path="/" element={<EventoLucky />} /> */}
       </Routes>
     </div>
   );
 }
 
 export default App;
+

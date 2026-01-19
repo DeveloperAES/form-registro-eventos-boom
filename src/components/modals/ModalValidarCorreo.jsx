@@ -37,7 +37,7 @@ const ModalVerificacionCorreo = ({ usuarioId, onCorreoValidado }) => {
     const loadingToast = toast.loading("Verificando...");
 
     try {
-      await axios.post(`http://localhost:4000/api/registros/validar-codigo-correo`, {
+      await axios.post(`https://eventosbooomapi-aub8evccgse4aye8.eastus-01.azurewebsites.net/api/registros/validar-codigo-correo`, {
         usuario_id: usuarioId,
         codigo_correo: codigo,
       });
